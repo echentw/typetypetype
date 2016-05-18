@@ -7,10 +7,12 @@ var bodyParser = require('body-parser');
 var exphbs = require('express-handlebars');
 var session = require('express-session');
 
+var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
 var routes = require('./routes/index');
 var home = require('./routes/home');
-
-var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -40,7 +42,15 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-// error handlers
+////////////////////// socket handlers
+io.on('connection', function(socket) {
+  console.log('a user connected');
+  socket.on('typed word', function(message) {
+    io.emit('typed word broadcast', message);
+  });
+});
+
+////////////////////// error handlers
 
 // development error handler
 // will print stacktrace
@@ -64,5 +74,8 @@ app.use(function(err, req, res, next) {
   });
 });
 
+http.listen(3000, function() {
+  console.log('listening on port 3000');
+});
 
 module.exports = app;
