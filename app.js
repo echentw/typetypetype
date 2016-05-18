@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var exphbs = require('express-handlebars');
 var session = require('express-session');
+var fs = require('fs');
 
 var app = express();
 var http = require('http').Server(app);
@@ -27,9 +28,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-  secret : 'qwerlkjasdfshs',
-  resave : true,
-  saveUnitialized: true
+  secret : fs.readFileSync('secret.txt', 'utf8'),
+  resave : false,
+  saveUninitialized : false
 }));
 
 app.use('/', routes);
