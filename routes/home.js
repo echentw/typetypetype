@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
   var text = fs.readFileSync('words10k.txt','utf8')
   var words = text.split('\n');
   var paragraph = [];
-  for (var i = 0; i < 100; ++i) {
+  for (var i = 0; i < 3; ++i) {
     var index = Math.floor(Math.random() * words.length);
     paragraph.push(words[index]);
   }

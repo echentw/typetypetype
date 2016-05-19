@@ -45,8 +45,14 @@ app.use(function(req, res, next) {
 
 ////////////////////// socket handlers
 io.on('connection', function(socket) {
-  socket.on('typed word', function(message) {
-    io.emit('typed word broadcast', message);
+  socket.on('client message', function(message) {
+    var name = message.name;
+    var index = message.index;
+    if (index < 3) {
+      io.emit('typed word broadcast', { name: name, index: index });
+    } else {
+      io.emit('winner broadcast', { name: name });
+    }
   });
 });
 

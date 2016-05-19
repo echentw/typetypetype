@@ -7,8 +7,8 @@
   </head>
   <body>
     <h2>Hello, {{ name }}!</h2>
-    <p id="name" hidden>{{ name }}</h2>
-    <ul id="words"></ul>
+    <div id="name" hidden>{{ name }}</div>
+    <h1 id="winner"></h1>
 
     <form id="start" action="">
       <button>Start!</button>
@@ -20,7 +20,7 @@
 
     <div id="paragraph">
       {{# each words }}
-        <p>{{ this }}</p>
+        <li id="{{@ index }}">{{ this }}</li>
       {{/ each }}
     </div>
 
