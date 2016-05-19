@@ -3,7 +3,7 @@ $(document).ready(function() {
 
   var index = 0;
 
-  $('#typed').submit(function() {
+  var submit = function() {
     var name = $('#name').html();
     var word = $('#input_word').val();
     var target = $('#' + index).html();
@@ -13,10 +13,15 @@ $(document).ready(function() {
       socket.emit('client message', { name: name, index: index });
     }
     $('#input_word').val('');
-    return false;
+  };
+  $('#typed').on('keypress', function(e) {
+    if (e.keyCode == 32 || e.keyCode == 13) {
+      submit();
+      return false;
+    }
   });
 
-  $('#join').submit(function() {
+  $('#join').on('keypress', function(e) {
     var name = $('#name').html();
     socket.emit('join', { name: name });
     return false;
