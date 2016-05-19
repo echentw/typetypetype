@@ -16,6 +16,20 @@ $(document).ready(function() {
     return false;
   });
 
+  $('#join').submit(function() {
+    var name = $('#name').html();
+    socket.emit('join', { name: name });
+    return false;
+  });
+
+  socket.on('player list', function(message) {
+    var players = message.players;
+    $('#players').html('');
+    for (var i = 0; i < players.length; ++i) {
+      $('#players').append('<li>' + players[i] + '</li>');
+    }
+  });
+
   socket.on('typed word broadcast', function(message) {
     console.log(message.name + ' ' + message.index);
   });

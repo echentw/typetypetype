@@ -44,7 +44,18 @@ app.use(function(req, res, next) {
 });
 
 ////////////////////// socket handlers
+var players = [];
+var sockets = [];
 io.on('connection', function(socket) {
+  socket.on('join', function(message) {
+    if (sockets.indexOf(socket) === -1) {
+      var name = message.name;
+      players.push(name);
+      sockets.push(socket);
+      io.emit('player list', { players: players });
+    }
+  });
+
   socket.on('client message', function(message) {
     var name = message.name;
     var index = message.index;
@@ -53,6 +64,13 @@ io.on('connection', function(socket) {
     } else {
       io.emit('winner broadcast', { name: name });
     }
+  });
+
+  socket.on('disconnect', function() {
+    var index = sockets.indexOf(socket);
+    sockets.splice(index);
+    players.splice(index);
+    io.emit('player list', { players: players });
   });
 });
 
