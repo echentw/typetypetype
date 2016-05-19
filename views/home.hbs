@@ -6,9 +6,23 @@
     <script src="/js/home.js"></script>
   </head>
   <body>
+    <h2>Hello, {{ name }}!</h2>
+    <p id="name" hidden>{{ name }}</h2>
     <ul id="words"></ul>
-    <form action="">
+
+    <form id="start" action="">
+      <button>Start!</button>
+    </form>
+
+    <form id="typed" action="">
       <input id="input_word" autocomplete="off" />
     </form>
+
+    <div id="paragraph">
+      {{# each words }}
+        <p>{{ this }}</p>
+      {{/ each }}
+    </div>
+
   </body>
 </html>

@@ -45,7 +45,6 @@ app.use(function(req, res, next) {
 
 ////////////////////// socket handlers
 io.on('connection', function(socket) {
-  console.log('a user connected');
   socket.on('typed word', function(message) {
     io.emit('typed word broadcast', message);
   });

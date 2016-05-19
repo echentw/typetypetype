@@ -1,10 +1,10 @@
 $(document).ready(function() {
   var socket = io();
 
-  $('form').submit(function() {
+  $('#typed').submit(function() {
+    var name = $('#name').html();
     var word = $('#input_word').val();
-    console.log(word);
-    socket.emit('typed word', word);
+    socket.emit('client message', { name: name, word: word });
     $('#input_word').val('');
     return false;
   });
