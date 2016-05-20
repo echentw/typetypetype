@@ -85,7 +85,7 @@ io.on('connection', function(socket) {
     var index = message.index;
     if (index < num_words) {
       io.emit('typed word broadcast', { name: name, index: index });
-    } else {
+    } else if (sockets.indexOf(socket) != -1) {
       io.emit('winner broadcast', { name: name });
     }
   });
