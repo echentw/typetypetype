@@ -1,8 +1,13 @@
+body {
+  background-color: lightblue;
+}
+
 .container {
   padding-top: 20px;
 }
 
 #left {
+  background-color: lightgrey;
   float: left;
   position: relative;
   height: 500px;
@@ -25,6 +30,7 @@
 }
 
 #right {
+  background-color: lightgrey;
   float: left;
   position: relative;
   height: 500px;
@@ -37,6 +43,7 @@
 }
 
 #paragraph-container {
+  background-color: white;
   height: 300px;
   margin-left: 30px;
   margin-right: 30px;

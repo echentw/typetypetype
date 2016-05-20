@@ -1,3 +1,11 @@
+body {
+  background-color: lightblue;
+}
+
+.jumbotron {
+  margin-top: 20px;
+}
+
 input {
   padding-top: 10px;
   padding-right: 10px;
