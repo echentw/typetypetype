@@ -1,32 +1,47 @@
 <!DOCTYPE HTML>
 <html>
   <head>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/home.css">
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="/js/socket.io.js"></script>
     <script src="/js/home.js"></script>
   </head>
   <body>
-    <h2>Hello, {{ name }}!</h2>
-    <div id="name" hidden>{{ name }}</div>
+    <div class="container">
 
-    <h2>People playing</h1>
-    <div id="players"></div>
+      <div id="left" class="well well-sm col-xs-3">
+        <h5>Hello, {{ name }}!</h5>
+        <div id="name" hidden>{{ name }}</div>
 
-    <h1 id="message"></h1>
+        <div id="player_list" class="well well-sm">
+          <h2>People playing</h2>
+          <div id="players"></div>
+        </div>
 
-    <form id="join" action="">
-      <button>Join</button>
-    </form>
+        <form id="join" action="">
+          <button>Join</button>
+        </form>
+      </div>
 
-    <form id="start" action="">
-      <button>Start</button>
-    </form>
+      <div id="right" class="well well-sm col-xs-8">
 
-    <form id="typed" action="">
-      <input id="input_word" autocomplete="off" />
-    </form>
+        <div class="text-center">
 
-    <div id="paragraph"></div>
+          <h1 id="message">TypeTypeType</h1>
+          <div id="paragraph" class="well well-sm"></div>
 
+          <form id="start" action="">
+            <button>Start</button>
+          </form>
+
+          <form id="typed" action="">
+            <input id="input_word" class="text-center" autocomplete="off" />
+          </form>
+        </div>
+      </div>
+
+    </div>
   </body>
 </html>
