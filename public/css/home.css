@@ -49,11 +49,16 @@ body {
   margin-right: 30px;
 }
 
+#paragraph-container h1 {
+  font-weight: 900;
+}
+
 #paragraph {
   position: absolute;
   text-align: left;
   margin-right: 50px;
 }
+
 #paragraph div {
   display: inline;
 }
