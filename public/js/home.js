@@ -37,7 +37,7 @@ $(document).ready(function() {
   socket.on('countdown', function(message) {
     $('#paragraph').html('');
     var value = message.value;
-    $('#message').html(value);
+    $('#start-button').html(value);
     if (value === 'Go!') {
       var words = message.words;
       for (var i = 0; i < words.length; ++i) {
@@ -59,6 +59,6 @@ $(document).ready(function() {
   });
 
   socket.on('winner broadcast', function(message) {
-    $('#message').html(message.name + ' wins!!!');
+    $('#paragraph-container').append('<h1>' + message.name + ' wins!!!</h1>');
   });
 });
