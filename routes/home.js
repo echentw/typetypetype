@@ -14,15 +14,8 @@ router.all('*', authenticate);
 
 /* GET home page */
 router.get('/', function(req, res, next) {
-  var text = fs.readFileSync('words10k.txt','utf8')
-  var words = text.split('\n');
-  var paragraph = [];
-  for (var i = 0; i < 3; ++i) {
-    var index = Math.floor(Math.random() * words.length);
-    paragraph.push(words[index]);
-  }
   var nickname = req.session.nickname;
-  res.render('home', { name: nickname, words: paragraph });
+  res.render('home', { name: nickname });
 });
 
 module.exports = router;

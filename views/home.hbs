@@ -12,21 +12,21 @@
     <h2>People playing</h1>
     <div id="players"></div>
 
-    <h1 id="winner"></h1>
+    <h1 id="message"></h1>
 
     <form id="join" action="">
-      <button>Join!</button>
+      <button>Join</button>
+    </form>
+
+    <form id="start" action="">
+      <button>Start</button>
     </form>
 
     <form id="typed" action="">
       <input id="input_word" autocomplete="off" />
     </form>
 
-    <div id="paragraph">
-      {{# each words }}
-        <li id="{{@ index }}">{{ this }}</li>
-      {{/ each }}
-    </div>
+    <div id="paragraph"></div>
 
   </body>
 </html>

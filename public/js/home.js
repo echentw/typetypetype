@@ -21,10 +21,27 @@ $(document).ready(function() {
     }
   });
 
-  $('#join').on('keypress', function(e) {
+  $('#join').submit(function() {
     var name = $('#name').html();
     socket.emit('join', { name: name });
     return false;
+  });
+
+  $('#start').submit(function() {
+    socket.emit('start');
+    return false;
+  });
+
+  socket.on('countdown', function(message) {
+    $('#paragraph').html('');
+    var value = message.value;
+    $('#message').html(value);
+    if (value === 'Go!') {
+      var words = message.words;
+      for (var i = 0; i < words.length; ++i) {
+        $('#paragraph').append('<li id=' + i + '>' + words[i] + '</li>');
+      }
+    }
   });
 
   socket.on('player list', function(message) {
@@ -40,7 +57,7 @@ $(document).ready(function() {
   });
 
   socket.on('winner broadcast', function(message) {
-    $('#winner').html(message.name + ' wins!!!');
+    $('#message').html(message.name + ' wins!!!');
     $('#paragraph').remove();
   });
 });
