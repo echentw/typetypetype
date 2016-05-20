@@ -45,6 +45,7 @@
 #paragraph {
   position: absolute;
   text-align: left;
+  margin-right: 50px;
 }
 #paragraph div {
   display: inline;

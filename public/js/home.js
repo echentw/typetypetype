@@ -11,6 +11,8 @@ $(document).ready(function() {
       $('#' + index).fadeTo(100, 0.5);
       ++index;
       socket.emit('client message', { name: name, index: index });
+    } else {
+      $('#' + index).css('color', 'red');
     }
     $('#input_word').val('');
   };
@@ -58,6 +60,5 @@ $(document).ready(function() {
 
   socket.on('winner broadcast', function(message) {
     $('#message').html(message.name + ' wins!!!');
-    $('#paragraph').remove();
   });
 });
