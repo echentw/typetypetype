@@ -36,10 +36,18 @@
   width: 150px;
 }
 
-#paragraph {
+#paragraph-container {
   height: 300px;
   margin-left: 30px;
   margin-right: 30px;
+}
+
+#paragraph {
+  position: absolute;
+  text-align: left;
+}
+#paragraph div {
+  display: inline;
 }
 
 #typed {
