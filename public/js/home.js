@@ -8,7 +8,7 @@ $(document).ready(function() {
     var word = $('#input_word').val();
     var target = $('#' + index).html();
     if (word === target.substring(0, target.length - 1)) {
-      $('#' + index).remove();
+      $('#' + index).fadeTo(100, 0.5);
       ++index;
       socket.emit('client message', { name: name, index: index });
     }
