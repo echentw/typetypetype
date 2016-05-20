@@ -1,6 +1,9 @@
 $(document).ready(function() {
   var socket = io();
 
+  var name = $('#name').html();
+  socket.emit('join', { name: name });
+
   var index = 0;
 
   $('#left').fadeIn(300, function() {
@@ -28,12 +31,6 @@ $(document).ready(function() {
       submit();
       return false;
     }
-  });
-
-  $('#join').submit(function() {
-    var name = $('#name').html();
-    socket.emit('join', { name: name });
-    return false;
   });
 
   $('#start').submit(function() {
