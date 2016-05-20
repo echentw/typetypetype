@@ -3,6 +3,13 @@ $(document).ready(function() {
 
   var index = 0;
 
+  $('#left').fadeIn(300, function() {
+    $('#right').fadeIn(300, function() {
+      $('#left-content').fadeIn(1000);
+      $('.text-center').fadeIn(1000);
+    });
+  });
+
   var submit = function() {
     var name = $('#name').html();
     var word = $('#input_word').val();

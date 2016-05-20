@@ -3,7 +3,12 @@ body {
 }
 
 .jumbotron {
+  display: none;
   margin-top: 20px;
+}
+
+form {
+  display: none;
 }
 
 input {

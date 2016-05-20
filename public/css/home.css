@@ -7,10 +7,15 @@ body {
 }
 
 #left {
+  display: none;
   background-color: lightgrey;
   float: left;
   position: relative;
   height: 500px;
+}
+
+#left-content {
+  display: none;
 }
 
 #player_list {
@@ -30,12 +35,17 @@ body {
 }
 
 #right {
+  display: none;
   background-color: lightgrey;
   float: left;
   position: relative;
   height: 500px;
 
   margin-left: 10px;
+}
+
+.text-center {
+  display: none;
 }
 
 #start button {
