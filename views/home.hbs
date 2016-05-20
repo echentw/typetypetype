@@ -12,16 +12,20 @@
     <div class="container">
 
       <div id="left" class="well well-sm col-xs-3">
-        <h5>Hello, {{ name }}!</h5>
+        <div id="greeting">Hello, {{ name }}!</div>
         <div id="name" hidden>{{ name }}</div>
 
         <div id="player_list" class="well well-sm">
-          <h2>People playing</h2>
-          <div id="players"></div>
+          <div class="panel panel-default">
+            <div class="panel-heading">People Playing</div>
+            <div class="panel-body">
+              <div id="players"></div>
+            </div>
+          </div>
         </div>
 
         <form id="join" action="">
-          <button>Join</button>
+          <button class="btn btn-default">Join</button>
         </form>
       </div>
 
@@ -35,7 +39,7 @@
           </div>
 
           <form id="start" action="">
-            <button id="start-button">Start</button>
+            <button id="start-button" class="btn btn-default">Start</button>
           </form>
 
           <form id="typed" action="">
