@@ -46,7 +46,8 @@ app.use(function(req, res, next) {
 ////////////////////// socket handlers
 var players = [];
 var sockets = [];
-var num_words = 5;
+var started = false;
+var num_words = 20;
 io.on('connection', function(socket) {
   socket.on('join', function(message) {
     if (sockets.indexOf(socket) === -1) {
@@ -58,26 +59,29 @@ io.on('connection', function(socket) {
   });
 
   socket.on('start', function() {
-    fs.readFile('words10k.txt', 'utf8', function(err, data) {
-      var words = data.split('\n');
-      var paragraph = [];
-      for (var i = 0; i < num_words; ++i) {
-        var index = Math.floor(Math.random() * words.length);
-        paragraph.push(words[index]);
-      }
-      setTimeout(function() {
-        io.emit('countdown', { value: '3' });
-      }, 1000);
-      setTimeout(function() {
-        io.emit('countdown', { value: '2' });
-      }, 2000);
-      setTimeout(function() {
-        io.emit('countdown', { value: '1' });
-      }, 3000);
-      setTimeout(function() {
-        io.emit('countdown', { value: 'Go!', words: paragraph });
-      }, 4000);
-    });
+    if (!started) {
+      started = true;
+      fs.readFile('words10k.txt', 'utf8', function(err, data) {
+        var words = data.split('\n');
+        var paragraph = [];
+        for (var i = 0; i < num_words; ++i) {
+          var index = Math.floor(Math.random() * words.length);
+          paragraph.push(words[index]);
+        }
+        setTimeout(function() {
+          io.emit('countdown', { value: '3' });
+        }, 1000);
+        setTimeout(function() {
+          io.emit('countdown', { value: '2' });
+        }, 2000);
+        setTimeout(function() {
+          io.emit('countdown', { value: '1' });
+        }, 3000);
+        setTimeout(function() {
+          io.emit('countdown', { value: 'Go!', words: paragraph });
+        }, 4000);
+      });
+    }
   });
 
   socket.on('client message', function(message) {
@@ -86,6 +90,7 @@ io.on('connection', function(socket) {
     if (index < num_words) {
       io.emit('typed word broadcast', { name: name, index: index });
     } else if (sockets.indexOf(socket) != -1) {
+      started = false;
       io.emit('winner broadcast', { name: name });
     }
   });
@@ -122,8 +127,8 @@ app.use(function(err, req, res, next) {
   });
 });
 
-http.listen(3000, function() {
-  console.log('listening on port 3000');
+http.listen(8000, function() {
+  console.log('listening on port 8000');
 });
 
 module.exports = app;
