@@ -19,12 +19,12 @@ $(document).ready(function() {
     var target = $('#' + index).html();
     if (word === target.substring(0, target.length - 1)) {
       $('#' + index).fadeTo(100, 0.5);
+      $('#input_word').val('');
       ++index;
       socket.emit('client message', { name: name, index: index });
     } else {
       $('#' + index).css('color', 'red');
     }
-    $('#input_word').val('');
   };
   $('#typed').on('keypress', function(e) {
     if (e.keyCode == 32 || e.keyCode == 13) {
@@ -39,9 +39,11 @@ $(document).ready(function() {
   });
 
   socket.on('countdown', function(message) {
-    $('#paragraph').html('');
+    index = 0;
     var value = message.value;
+    $('#paragraph').html('');
     $('#start-button').html(value);
+    $('#paragraph-container').find('#winner').remove();
     if (value === 'Go!') {
       var words = message.words;
       for (var i = 0; i < words.length; ++i) {
@@ -63,6 +65,7 @@ $(document).ready(function() {
   });
 
   socket.on('winner broadcast', function(message) {
-    $('#paragraph-container').append('<h1>' + message.name + ' wins!!!</h1>');
+    var html = '<h1 id="winner">' + message.name + ' wins!!!</h1>';
+    $('#paragraph-container').append(html);
   });
 });
