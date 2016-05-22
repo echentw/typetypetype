@@ -25,7 +25,7 @@ $(document).ready(function() {
     var name = $('#name').html();
     var word = $('#input_word').val();
     var target = $('#' + index).html();
-    if (word === target.substring(0, target.length - 1)) {
+    if (target && word === target.substring(0, target.length - 1)) {
       $('#' + index).fadeTo(100, 0.5);
       $('#input_word').val('');
       ++index;
