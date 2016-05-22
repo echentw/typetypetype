@@ -91,8 +91,13 @@ io.on('connection', function(socket) {
       var progress = Math.floor(index / num_words * 100);
       io.emit('typed word broadcast', { name: name, progress: progress });
     } else if (sockets.indexOf(socket) != -1) {
-      started = false;
-      io.emit('winner broadcast', { name: name, progress: 100 });
+        if (started) {
+          started = false;
+          io.emit('winner broadcast', { name: name, progress: 100 });
+        } else {
+          io.emit('typed word broadcast', { name: name, progress: progress });
+        }
+      }
     }
   });
 
