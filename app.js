@@ -48,7 +48,7 @@ var players = [];
 var progresses = [];
 var sockets = [];
 var started = false;
-var num_words = 9;
+var num_words = 20;
 io.on('connection', function(socket) {
   socket.on('join', function(message) {
     if (sockets.indexOf(socket) === -1) {
