@@ -4,12 +4,14 @@ $(document).ready(function() {
   var name = $('#name').html();
   socket.emit('join', { name: name });
 
+  var finish_sound = new Audio('../assets/finish.wav');
   var keypress_sound = [];
   var keypress_ctr = 0;
   for (var i = 0; i < 10; ++i) {
     keypress_sound.push(new Audio('../assets/keypress.wav'));
   }
 
+  var num_words = -1;
   var index = 0;
 
   $('#left').fadeIn(300, function() {
@@ -27,6 +29,9 @@ $(document).ready(function() {
       $('#' + index).fadeTo(100, 0.5);
       $('#input_word').val('');
       ++index;
+      if (index === num_words) {
+        finish_sound.play();
+      }
       socket.emit('client message', { name: name, index: index });
     } else {
       $('#' + index).css('color', 'red');
@@ -63,7 +68,8 @@ $(document).ready(function() {
     $('#paragraph-container').find('#winner').remove();
     if (value === 'Go!') {
       var words = message.words;
-      for (var i = 0; i < words.length; ++i) {
+      num_words = words.length;
+      for (var i = 0; i < num_words; ++i) {
         $('#paragraph').append('<div id=' + i + '>' + words[i] + ' </div>');
       }
     }
