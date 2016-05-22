@@ -4,6 +4,12 @@ $(document).ready(function() {
   var name = $('#name').html();
   socket.emit('join', { name: name });
 
+  var keypress_sound = [];
+  var keypress_ctr = 0;
+  for (var i = 0; i < 10; ++i) {
+    keypress_sound.push(new Audio('../assets/keypress.wav'));
+  }
+
   var index = 0;
 
   $('#left').fadeIn(300, function() {
@@ -26,10 +32,21 @@ $(document).ready(function() {
       $('#' + index).css('color', 'red');
     }
   };
-  $('#typed').on('keypress', function(e) {
+  var keypressed = {};
+  $('#typed').keydown(function(e) {
+    if (!keypressed[e.keyCode]) {
+      keypressed[e.keyCode] = true;
+      keypress_sound[keypress_ctr].play();
+      keypress_ctr = (keypress_ctr + 1) % keypress_sound.length;
+    }
     if (e.keyCode == 32 || e.keyCode == 13) {
       submit();
       return false;
+    }
+  });
+  $('#typed').keyup(function(e) {
+    if (keypressed[e.keyCode]) {
+      keypressed[e.keyCode] = false;
     }
   });
 
