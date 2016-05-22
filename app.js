@@ -45,6 +45,7 @@ app.use(function(req, res, next) {
 
 ////////////////////// socket handlers
 var players = [];
+var progresses = [];
 var sockets = [];
 var started = false;
 var num_words = 9;
@@ -53,8 +54,9 @@ io.on('connection', function(socket) {
     if (sockets.indexOf(socket) === -1) {
       var name = message.name;
       players.push(name);
+      progresses.push(0);
       sockets.push(socket);
-      io.emit('player list', { players: players });
+      io.emit('player list', { players: players, progresses: progresses });
     }
   });
 
@@ -89,13 +91,15 @@ io.on('connection', function(socket) {
     var index = message.index;
     if (index < num_words) {
       var progress = Math.floor(index / num_words * 100);
+      progresses[ sockets.indexOf(socket) ] = progress;
       io.emit('typed word broadcast', { name: name, progress: progress });
     } else if (sockets.indexOf(socket) != -1) {
+      progresses[ sockets.indexOf(socket) ] = 100;
       if (started) {
         started = false;
         io.emit('winner broadcast', { name: name, progress: 100 });
       } else {
-        io.emit('typed word broadcast', { name: name, progress: progress });
+        io.emit('typed word broadcast', { name: name, progress: 100 });
       }
     }
   });
@@ -103,8 +107,9 @@ io.on('connection', function(socket) {
   socket.on('disconnect', function() {
     var index = sockets.indexOf(socket);
     sockets.splice(index);
+    progresses.splice(index);
     players.splice(index);
-    io.emit('player list', { players: players });
+    io.emit('player list', { players: players, progresses: progresses });
   });
 });
 

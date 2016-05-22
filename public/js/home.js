@@ -27,6 +27,14 @@ $(document).ready(function() {
     $('#' + name + '-progress-bar').html(progress + '%');
   };
 
+  var clearAllProgresses = function() {
+    $('.progress-bar').each(function(index) {
+      $(this).attr('aria-valuenow', 0);
+      $(this).attr('style', 'width:0%');
+      $(this).html('0%');
+    });
+  };
+
   var submit = function() {
     var name = $('#name').html();
     var word = $('#input_word').val();
@@ -73,7 +81,9 @@ $(document).ready(function() {
     $('#paragraph').html('');
     $('#start-button').html(value);
     $('#paragraph-container').find('#winner').remove();
-    if (value === 'Go!') {
+    if (value === '3') {
+      clearAllProgresses();
+    } else if (value === 'Go!') {
       var words = message.words;
       num_words = words.length;
       for (var i = 0; i < num_words; ++i) {
@@ -84,15 +94,17 @@ $(document).ready(function() {
 
   socket.on('player list', function(message) {
     var players = message.players;
+    var progresses = message.progresses;
     $('#players').html('');
     for (var i = 0; i < players.length; ++i) {
       $('#players').append('<p>' + players[i] + '</p>');
+      var progress = progresses[i];
       var progress_bar =
           '<div class="progress">' +
             '<div id = "' + players[i] + '-progress-bar" ' +
-            'class="progress-bar" role="progressbar" aria-valuenow="0" ' +
-            'aria-valuemin="0" aria-valuemax="100" style="width:0%">' +
-              '0%' +
+            'class="progress-bar" role="progressbar" aria-valuenow="' + progress + '" ' +
+            'aria-valuemin="0" aria-valuemax="100" style="width:' + progress + '%">' +
+              progress + '%' +
             '</div>' +
           '</div>';
       $('#players').append(progress_bar);
