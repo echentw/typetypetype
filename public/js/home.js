@@ -21,6 +21,12 @@ $(document).ready(function() {
     });
   });
 
+  var updateProgress = function(name, progress) {
+    $('#' + name + '-progress-bar').attr('aria-valuenow', progress);
+    $('#' + name + '-progress-bar').attr('style', 'width:' + progress + '%');
+    $('#' + name + '-progress-bar').html(progress + '%');
+  };
+
   var submit = function() {
     var name = $('#name').html();
     var word = $('#input_word').val();
@@ -32,7 +38,8 @@ $(document).ready(function() {
       if (index === num_words) {
         finish_sound.play();
       }
-      socket.emit('client message', { name: name, index: index });
+      socket.emit('progress', { name: name, index: index });
+      updateProgress(index / num_words * 100);
     } else {
       $('#' + index).css('color', 'red');
     }
@@ -80,14 +87,26 @@ $(document).ready(function() {
     $('#players').html('');
     for (var i = 0; i < players.length; ++i) {
       $('#players').append('<p>' + players[i] + '</p>');
+      var progress_bar =
+          '<div class="progress">' +
+            '<div id = "' + players[i] + '-progress-bar" ' +
+            'class="progress-bar" role="progressbar" aria-valuenow="0" ' +
+            'aria-valuemin="0" aria-valuemax="100" style="width:0%">' +
+              '0%' +
+            '</div>' +
+          '</div>';
+      $('#players').append(progress_bar);
     }
   });
 
   socket.on('typed word broadcast', function(message) {
-    console.log(message.name + ' ' + message.index);
+    var name = message.name;
+    var progress = message.progress;
+    updateProgress(name, progress);
   });
 
   socket.on('winner broadcast', function(message) {
+    updateProgress(message.name, message.progress);
     var html = '<h1 id="winner">' + message.name + ' wins!!!</h1>';
     $('#paragraph-container').append(html);
   });

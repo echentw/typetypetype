@@ -47,7 +47,7 @@ app.use(function(req, res, next) {
 var players = [];
 var sockets = [];
 var started = false;
-var num_words = 20;
+var num_words = 9;
 io.on('connection', function(socket) {
   socket.on('join', function(message) {
     if (sockets.indexOf(socket) === -1) {
@@ -84,14 +84,15 @@ io.on('connection', function(socket) {
     }
   });
 
-  socket.on('client message', function(message) {
+  socket.on('progress', function(message) {
     var name = message.name;
     var index = message.index;
     if (index < num_words) {
-      io.emit('typed word broadcast', { name: name, index: index });
+      var progress = Math.floor(index / num_words * 100);
+      io.emit('typed word broadcast', { name: name, progress: progress });
     } else if (sockets.indexOf(socket) != -1) {
       started = false;
-      io.emit('winner broadcast', { name: name });
+      io.emit('winner broadcast', { name: name, progress: 100 });
     }
   });
 
@@ -127,8 +128,8 @@ app.use(function(err, req, res, next) {
   });
 });
 
-http.listen(8000, function() {
-  console.log('listening on port 8000');
+http.listen(3000, function() {
+  console.log('listening on port 3000');
 });
 
 module.exports = app;
