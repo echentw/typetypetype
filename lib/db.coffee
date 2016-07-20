@@ -1,35 +1,35 @@
-Channel = require('./channel')
+Game = require('./game')
 
 class Database
   EXPIRE_TIME_IN_MILLISECONDS = 60 * 60 * 1000
   CHARS = '1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM'
 
   constructor: ->
-    @channels = {}
+    @games = {}
 
-    setInterval(((channels) ->
-      for key of channels
+    setInterval(((games) ->
+      for key of games
         # check if there has been no activity
         if false
-          delete channels[key]
-    ), EXPIRE_TIME_IN_MILLISECONDS, @channels)
+          delete games[key]
+    ), EXPIRE_TIME_IN_MILLISECONDS, @games)
 
   add: =>
     key = generateKey(16)
-    while key of @channels
+    while key of @games
       key = generateKey(16)
 
-    @channels[key] = new Channel()
+    @games[key] = new Game()
     return key
 
   find: (key) =>
-    if key of @channels
-      return @channels[key]
+    if key of @games
+      return @games[key]
     return null
 
   delete: (key) =>
-    if key of @channels
-      delete @channels[key]
+    if key of @games
+      delete @games[key]
       return true
     return false
 

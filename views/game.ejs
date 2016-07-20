@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Channel</title>
+    <title>Game</title>
     <link rel="stylesheet" href="/css/style.css"/>
     <script src="/vendor/js/require.js"></script>
     <script src="/js/requirejs-config.js"></script>
-    <script src="/js/channel.js"></script>
+    <script src="/js/game.js"></script>
   </head>
   <body>
-    <h1>This is the channel page</h1>
-    <p>Channel ID: <%= channelID %></p>
+    <h1>This is the game page</h1>
+    <p>Game ID: <%= gameID %></p>
     <p>Username: <%= username %></p>
 
     <h2>Ping the server</h2>
     <input id="ping" type="submit" name="Ping the server">
 
     <div hidden>
-      <div id="channelID"><%= channelID %></div>
+      <div id="gameID"><%= gameID %></div>
       <div id="username"><%= username %></div>
     </div>
   </body>

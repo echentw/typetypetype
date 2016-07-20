@@ -2,10 +2,10 @@ require(['jquery', 'client'], ($, Client) ->
 
   $(document).ready( ->
 
-    channelID = $('#channelID').text()
+    gameID = $('#gameID').text()
     username = $('#username').text()
 
-    client = new Client(channelID, username)
+    client = new Client(gameID, username)
 
     $('#ping').click( ->
       client.ping()

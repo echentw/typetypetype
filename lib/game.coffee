@@ -1,4 +1,4 @@
-class Channel
+class Game
   constructor: ->
     @users = {}
 
@@ -17,4 +17,4 @@ class Channel
   empty: ->
     return Object.keys(@users).length == 0
 
-module.exports = Channel
+module.exports = Game

@@ -9,11 +9,11 @@ bodyParser = require('body-parser')
 fs = require('fs')
 socket = require('socket.io')
 http = require('http')
-debug = require('debug')('channels:server')
+debug = require('debug')('typetypetype:server')
 
 homeRoutes = require('./routes/http/home')
-channelRoutes = require('./routes/http/channel')
-channelSocketRoutes = require('./routes/socket/channel')
+gameRoutes = require('./routes/http/game')
+gameSocketRoutes = require('./routes/socket/game')
 
 Database = require('./lib/db')
 
@@ -48,8 +48,8 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 # attach routes
 homeRoutes.attach(app, database)
-channelRoutes.attach(app, database)
-channelSocketRoutes.attach(io, database)
+gameRoutes.attach(app, database)
+gameSocketRoutes.attach(io, database)
 
 io.use(sharedSession(session, {autoSave:true}))
 

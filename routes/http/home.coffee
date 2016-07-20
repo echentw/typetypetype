@@ -5,43 +5,43 @@ home = (req, res, next) ->
   res.render('home')
   return
 
-# POST create a channel
-createChannel = (req, res, next) ->
+# POST create a game
+createGame = (req, res, next) ->
   # clear the current session
-  req.session.channelID = null
+  req.session.gameID = null
   req.session.username = null
 
   # create new session
-  channelID = database.add()
-  req.session.channelID = channelID
+  gameID = database.add()
+  req.session.gameID = gameID
   req.session.username = req.body['username']
 
-  res.redirect('/channel/' + channelID)
+  res.redirect('/game/' + gameID)
 
-# POST join a channel
-joinChannel = (req, res, next) ->
+# POST join a game
+joinGame = (req, res, next) ->
   # validate the request
-  if !req.body['channelID'] || !req.body['username']
+  if !req.body['gameID'] || !req.body['username']
     res.redirect('/')
     return
 
   # clear the current session
-  req.session.channelID = null
+  req.session.gameID = null
   req.session.username = null
 
-  # check that the requested channelID exists
-  if !database.find(req.body['channelID'])
+  # check that the requested gameID exists
+  if !database.find(req.body['gameID'])
     res.redirect('/')
     return
 
-  req.session.channelID = req.body['channelID']
+  req.session.gameID = req.body['gameID']
   req.session.username = req.body['username']
 
-  res.redirect('/channel/' + req.session.channelID)
+  res.redirect('/game/' + req.session.gameID)
 
 # Attach route handlers to the app
 module.exports.attach = (app, db) ->
   database = db
   app.get('/', home)
-  app.post('/create', createChannel)
-  app.post('/join', joinChannel)
+  app.post('/create', createGame)
+  app.post('/join', joinGame)

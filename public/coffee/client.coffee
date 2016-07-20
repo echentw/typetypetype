@@ -1,14 +1,14 @@
 define(['socket-io'], (io) ->
 
   class Client
-    constructor: (channelID, username) ->
-      @channelID = channelID
+    constructor: (gameID, username) ->
+      @gameID = gameID
       @username = username
       @socket = getSocket()
-      @socket.emit('join', {channelID: channelID, username: username})
+      @socket.emit('join', {gameID: gameID, username: username})
 
     ping: =>
-      @socket.emit('hit', {channelID: @channelID, username: @username})
+      @socket.emit('hit', {gameID: @gameID, username: @username})
 
     getSocket = ->
       socket = io.connect()
