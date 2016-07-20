@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Home</title>
+    <link rel='stylesheet' href='/css/style.css' />
+  </head>
+  <body>
+    <h1>This is the home page</h1>
+
+    <h2>Create Channel</h2>
+    <form method="post" action="/create">
+      Username: <input type="text" name="username"><br>
+      <input type="submit" value="Create Channel">
+    </form>
+
+    <h2>Join Channel</h2>
+    <form method="post" action="/join">
+      Username: <input type="text" name="username"><br>
+      Channel ID: <input type="text" name="channelID"><br>
+      <input type="submit" value="Join Channel">
+    </form>
+  </body>
+</html>

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+mkdir -p ./keys/
+./bin/keygen
+coffee -c --output ./public/js ./public/coffee
+coffee ./server.coffee
