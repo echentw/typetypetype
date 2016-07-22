@@ -2,12 +2,59 @@
 <html>
   <head>
     <title>Game</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/game.css">
     <link rel="stylesheet" href="/css/style.css"/>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="/vendor/js/require.js"></script>
     <script src="/js/requirejs-config.js"></script>
     <script src="/js/game.js"></script>
   </head>
   <body>
+    <div class="container">
+
+      <div id="left" class="well well-sm col-xs-3">
+        <div id="left-content">
+          <div id="greeting">Hello, <%= username %>!</div>
+          <div id="name" hidden><%= username %></div>
+
+          <div id="player_list" class="well well-sm">
+            <div class="panel panel-default">
+              <div class="panel-heading">People Playing</div>
+              <div class="panel-body">
+                <div id="players"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div id="right" class="well well-sm col-xs-8">
+
+        <div class="text-center">
+
+          <h1 id="message">TypeTypeType</h1>
+          <div id="paragraph-container" class="well well-sm">
+            <div id="paragraph"></div>
+          </div>
+
+          <form id="start" action="">
+            <button id="start-button" class="btn btn-default">Start</button>
+          </form>
+
+          <form id="typed" action="">
+            <input id="input_word" class="text-center" autocomplete="off" />
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </body>
+</html>
+
+    <!--
     <h1>This is the game page</h1>
     <p>Game ID: <%= gameID %></p>
     <p>Username: <%= username %></p>
@@ -20,4 +67,4 @@
       <div id="username"><%= username %></div>
     </div>
   </body>
-</html>
+  -->

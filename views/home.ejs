@@ -2,22 +2,55 @@
 <html>
   <head>
     <title>Home</title>
-    <link rel='stylesheet' href='/css/style.css' />
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="/js/home.js"></script>
   </head>
   <body>
-    <h1>This is the home page</h1>
+    <div class="container">
 
-    <h2>Create Game</h2>
-    <form method="post" action="/create">
-      Username: <input type="text" name="username"><br>
-      <input type="submit" value="Create Game">
-    </form>
+      <div class="jumbotron">
+        <h1 class="text-center">TypeTypeType</h1> 
+        <p class="text-center">A typing game.</p>
+      </div>
 
-    <h2>Join Game</h2>
-    <form method="post" action="/join">
-      Username: <input type="text" name="username"><br>
-      Game ID: <input type="text" name="gameID"><br>
-      <input type="submit" value="Join Game">
-    </form>
+      <form method="post" action="/create">
+        <fieldset class="form-group">
+          <div class="text-center">
+            <input type='text' name='username' placeholder="Name" required/><br/>
+            <button class="btn btn-success" type="submit">Create Room</button>
+          </div>
+        </fieldset>
+      </form>
+
+      <form method="post" action="/join">
+        <fieldset class="form-group">
+          <div class="text-center">
+            <input type='text' name='username' placeholder="Name" required/><br>
+            <input type="text" name="gameID" placeholder="Room ID"><br>
+            <button class="btn btn-success" type="submit">Join Room</button>
+          </div>
+        </fieldset>
+      </form>
+
+      <!--
+      <h2>Create Game</h2>
+      <form method="post" action="/create">
+        Username: <input type="text" name="username"><br>
+        <input type="submit" value="Create Game">
+      </form>
+
+      <h2>Join Game</h2>
+      <form method="post" action="/join">
+        Username: <input type="text" name="username"><br>
+        Game ID: <input type="text" name="gameID"><br>
+        <input type="submit" value="Join Game">
+      </form>
+      -->
+
+    </div>
   </body>
 </html>
