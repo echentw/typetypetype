@@ -23,10 +23,7 @@ join = (data) ->
 
   socket.join(gameID)
 
-  message = username + ' joined game ' + gameID
-  io.sockets.in(gameID).emit('update', {message: message})
-  console.log message
-
+  io.sockets.in(gameID).emit('player list', {progresses: progresses})
 
 disconnect = ->
   socket = this
@@ -46,6 +43,35 @@ disconnect = ->
     io.sockets.in(session.gameID).emit('update', {message: message})
 
   console.log message
+
+start = (data) ->
+  socket = this
+  session = socket.handshake.session
+
+  if session.gameID != data.gameID ||
+      session.username != data.username
+    socket.emit('error', {message: 'Authentication failed'})
+
+  game = database.find(data.gameID)
+  if !game
+    socket.emit('error', {message: 'Game not found.'})
+    return
+
+  if game.start()
+    setTimeout( ->
+      io.emit('countdown', {value: '3'})
+    , 1000)
+    setTimeout( ->
+      io.emit('countdown', {value: '2'})
+    , 2000)
+    setTimeout( ->
+      io.emit('countdown', {value: '1'})
+    , 3000)
+    setTimeout( ->
+      io.emit('countdown', {value: 'Go!', words: game.getParagraph()})
+    , 4000)
+
+  return
 
 hit = (data) ->
   socket = this
