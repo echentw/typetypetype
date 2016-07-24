@@ -23,7 +23,7 @@ join = (data) ->
 
   socket.join(gameID)
 
-  io.sockets.in(gameID).emit('player list', {progresses: progresses})
+  io.sockets.in(gameID).emit('player list', {progresses: game.progresses})
 
 disconnect = ->
   socket = this
@@ -36,13 +36,10 @@ disconnect = ->
   game.removeUser(session.username)
 
   message = session.username + ' left game ' + session.gameID
-  console.log game.empty()
   if game.empty()
     database.delete(session.gameID)
   else
     io.sockets.in(session.gameID).emit('update', {message: message})
-
-  console.log message
 
 start = (data) ->
   socket = this
@@ -59,32 +56,50 @@ start = (data) ->
 
   if game.start()
     setTimeout( ->
-      io.emit('countdown', {value: '3'})
+      io.sockets.in(session.gameID).emit('countdown', {value: '3'})
     , 1000)
     setTimeout( ->
-      io.emit('countdown', {value: '2'})
+      io.sockets.in(session.gameID).emit('countdown', {value: '2'})
     , 2000)
     setTimeout( ->
-      io.emit('countdown', {value: '1'})
+      io.sockets.in(session.gameID).emit('countdown', {value: '1'})
     , 3000)
     setTimeout( ->
-      io.emit('countdown', {value: 'Go!', words: game.getParagraph()})
+      io.sockets.in(session.gameID).emit('countdown', {
+        value: 'Go!', words: game.getParagraph()
+      })
     , 4000)
 
   return
 
-hit = (data) ->
+progress = (data) ->
   socket = this
   session = socket.handshake.session
 
   if session.gameID != data.gameID ||
       session.username != data.username
-    socket.emit('error', {message: 'Authentication failed.'})
+    socket.emit('error', {message: 'Authentication failed'})
     return
 
-  message = session.username + ' pinged game ' + session.gameID
-  io.sockets.in(session.gameID).emit('update', {message: message})
-  console.log message
+  game = database.find(data.gameID)
+  if !game
+    socket.emit('error', {message: 'Game not found.'})
+    return
+
+  result = game.progress(data.username, data.index, data.word)
+  if !result.success
+    socket.emit('error', {message: 'Something went wrong!'})
+    return
+
+  socket.emit('progress')
+  if result.winner
+    io.sockets.in(session.gameID).emit('winner broadcast', {
+      name: data.username, progress: result.progress
+    })
+  else
+    io.sockets.in(session.gameID).emit('typed word broadcast', {
+      name: data.username, progress: result.progress
+    })
 
 module.exports.attach = (socketIO, db) ->
   database = db
@@ -93,5 +108,6 @@ module.exports.attach = (socketIO, db) ->
   io.sockets.on('connection', (socket) ->
     socket.on('join', join)
     socket.on('disconnect', disconnect)
-    socket.on('hit', hit)
+    socket.on('start', start)
+    socket.on('progress', progress)
   )

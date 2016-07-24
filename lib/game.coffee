@@ -5,7 +5,7 @@ class Game
     @users = {}
     @progresses = {}
     @started = false
-    @numWords = 20
+    @numWords = 3
     @paragraph = []
 
   addUser: (username) =>
@@ -31,7 +31,7 @@ class Game
     if @started
       return false
 
-    fs.readFile('../words10k.txt', 'utf8', (err, data) ->
+    fs.readFile('./assets/words10k.txt', 'utf8', (err, data) =>
       words = data.split('\n')
       @paragraph = []
       for i in [0...@numWords]
@@ -43,5 +43,23 @@ class Game
 
   getParagraph: =>
     return @paragraph
+
+  progress: (username, index, word) =>
+    if word != @paragraph[index]
+      return {success: false}
+
+    ++index
+
+    if index < @numWords
+      progress = Math.floor(index / @numWords * 100)
+      @progresses[username] = progress
+      return {success: true, winner: false, progress: progress}
+    else
+      @progresses[username] = 100
+      if @started
+        @started = false
+        return {success: true, winner: true, progress: 100}
+      else
+        return {success: true, winner: false, progress: 100}
 
 module.exports = Game
