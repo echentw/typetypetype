@@ -7,10 +7,10 @@ define(['socket-io'], (io) ->
       @socket = @getSocket()
       @socket.emit('join', {gameID: gameID, username: username})
 
-      @finishSound = new Audio('../assets/finish.wav')
-      @keypressSound = []
-      for i in [0...10]
-        @keypressSound.push(new Audio('../assets/keypress.wav'))
+      # @finishSound = new Audio('../assets/finish.wav')
+      # @keypressSound = []
+      # for i in [0...10]
+      #   @keypressSound.push(new Audio('../assets/keypress.wav'))
 
       @numWords = -1
       @index = 0

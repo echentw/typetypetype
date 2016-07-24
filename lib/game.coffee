@@ -5,7 +5,7 @@ class Game
     @users = {}
     @progresses = {}
     @started = false
-    @numWords = 3
+    @numWords = 20
     @paragraph = []
 
   addUser: (username) =>
