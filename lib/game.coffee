@@ -18,6 +18,7 @@ class Game
   removeUser: (username) =>
     if username of @users
       delete @users[username]
+      delete @progresses[username]
       return true
     return false
 

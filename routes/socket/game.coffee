@@ -35,11 +35,12 @@ disconnect = ->
 
   game.removeUser(session.username)
 
-  message = session.username + ' left game ' + session.gameID
   if game.empty()
     database.delete(session.gameID)
   else
-    io.sockets.in(session.gameID).emit('update', {message: message})
+    io.sockets.in(session.gameID).emit('player list', {
+      progresses: game.progresses
+    })
 
 start = (data) ->
   socket = this

@@ -60,6 +60,8 @@ define(['socket-io'], (io) ->
         console.log data.message
       )
       socket.on('player list', (data) ->
+        console.log 'player list'
+        console.log data
         $('#players').html('')
         for player of data.progresses
           $('#players').append('<p>' + player + '</p>')
