@@ -17,42 +17,38 @@
         <p class="text-center">A typing game.</p>
       </div>
 
-      <form method="post" action="/create">
-        <fieldset class="form-group">
-          <div class="text-center">
-            <input type='text' name='username' placeholder="Name" required/><br/>
-            <button class="btn btn-success" type="submit">Create Room</button>
+      <div class="container-liquid">
+        <div class="row">
+
+          <div class="col-xs-6 col-sm-6 col-md-6">
+            <div class="text-center">
+              <h1>Create a new room</h1>
+              <form method="post" action="/create">
+                <fieldset class="form-group">
+                  <input type='text' name='username' placeholder="Name" required/><br/>
+                  <button class="btn btn-success" type="submit">Create Room</button>
+                </fieldset>
+              </form>
+            </div>
           </div>
-        </fieldset>
-      </form>
 
-      <form method="post" action="/join">
-        <fieldset class="form-group">
+          <div class="col-xs-6 col-sm-6 col-md-6">
+            <div class="text-center">
+              <h1>Or join an existing room</h1>
+              <form method="post" action="/join">
+                <fieldset class="form-group">
+                  <div id="warning"><%= message %></div>
 
-          <div class="text-center">
-            <div id="message"><%= message %></div>
-
-            <input type='text' name='username' placeholder="Name" required/><br>
-            <input type="text" name="gameID" placeholder="Room ID"><br>
-            <button class="btn btn-success" type="submit">Join Room</button>
+                  <input type='text' name='username' placeholder="Name" required/><br>
+                  <input type="text" name="gameID" placeholder="Room ID"><br>
+                  <button class="btn btn-success" type="submit">Join Room</button>
+                </fieldset>
+              </form>
+            </div>
           </div>
-        </fieldset>
-      </form>
 
-      <!--
-      <h2>Create Game</h2>
-      <form method="post" action="/create">
-        Username: <input type="text" name="username"><br>
-        <input type="submit" value="Create Game">
-      </form>
-
-      <h2>Join Game</h2>
-      <form method="post" action="/join">
-        Username: <input type="text" name="username"><br>
-        Game ID: <input type="text" name="gameID"><br>
-        <input type="submit" value="Join Game">
-      </form>
-      -->
+        </div>
+      </div>
 
     </div>
   </body>
