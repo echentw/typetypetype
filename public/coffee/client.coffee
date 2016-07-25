@@ -52,11 +52,7 @@ define(['socket-io'], (io) ->
 
     getSocket: =>
       socket = io.connect()
-      # socket = io()
-      socket.on('update', (data) ->
-        console.log data.message
-      )
-      socket.on('error', (data) ->
+      socket.on('eror', (data) ->
         console.log data.message
       )
       socket.on('player list', (data) ->

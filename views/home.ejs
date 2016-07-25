@@ -28,7 +28,10 @@
 
       <form method="post" action="/join">
         <fieldset class="form-group">
+
           <div class="text-center">
+            <div id="message"><%= message %></div>
+
             <input type='text' name='username' placeholder="Name" required/><br>
             <input type="text" name="gameID" placeholder="Room ID"><br>
             <button class="btn btn-success" type="submit">Join Room</button>

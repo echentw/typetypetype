@@ -8,6 +8,9 @@ class Game
     @numWords = 20
     @paragraph = []
 
+  userExists: (username) =>
+    return (username of @users)
+
   addUser: (username) =>
     if username of @users
       return false

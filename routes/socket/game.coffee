@@ -8,17 +8,17 @@ join = (data) ->
   username = data.username
 
   if socket.handshake.session.gameID != gameID
-    socket.emit('error', {message: 'Authentication failed.'})
+    socket.emit('eror', {message: 'Authentication failed.'})
     return
 
   game = database.find(gameID)
   if !game
-    socket.emit('error', {message: 'The game does not exist.'})
+    socket.emit('eror', {message: 'The game does not exist.'})
     return
 
   success = game.addUser(username)
   if !success
-    socket.emit('error', {message: 'Username already exists.'})
+    socket.emit('eror', {message: 'Username already exists.'})
     return
 
   socket.join(gameID)
@@ -48,11 +48,11 @@ start = (data) ->
 
   if session.gameID != data.gameID ||
       session.username != data.username
-    socket.emit('error', {message: 'Authentication failed'})
+    socket.emit('eror', {message: 'Authentication failed'})
 
   game = database.find(data.gameID)
   if !game
-    socket.emit('error', {message: 'Game not found.'})
+    socket.emit('eror', {message: 'Game not found.'})
     return
 
   if game.start()
@@ -79,17 +79,17 @@ progress = (data) ->
 
   if session.gameID != data.gameID ||
       session.username != data.username
-    socket.emit('error', {message: 'Authentication failed'})
+    socket.emit('eror', {message: 'Authentication failed'})
     return
 
   game = database.find(data.gameID)
   if !game
-    socket.emit('error', {message: 'Game not found.'})
+    socket.emit('eror', {message: 'Game not found.'})
     return
 
   result = game.progress(data.username, data.index, data.word)
   if !result.success
-    socket.emit('error', {message: 'Something went wrong!'})
+    socket.emit('eror', {message: 'Something went wrong!'})
     return
 
   socket.emit('progress')

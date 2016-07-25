@@ -2,7 +2,7 @@ database = null
 
 # GET home page
 home = (req, res, next) ->
-  res.render('home')
+  res.render('home', {message: ''})
   return
 
 # POST create a game
@@ -30,8 +30,14 @@ joinGame = (req, res, next) ->
   req.session.username = null
 
   # check that the requested gameID exists
-  if !database.find(req.body['gameID'])
-    res.redirect('/')
+  game = database.find(req.body['gameID'])
+  if game == null
+    res.render('home', {message: 'There is no game with that ID.'})
+    return
+  if game.userExists(req.body['username'])
+    res.render('home', {
+      message: 'That name already already exists in that game.'
+    })
     return
 
   req.session.gameID = req.body['gameID']
