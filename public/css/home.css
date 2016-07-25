@@ -7,7 +7,7 @@ body {
   margin-top: 20px;
 }
 
-form {
+#create-room, #join-room {
   display: none;
 }
 

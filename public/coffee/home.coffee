@@ -1,5 +1,6 @@
 $(document).ready( ->
-  $('.jumbotron').fadeIn(1000, ->
-    $('form').fadeIn(500)
+  $('.jumbotron').fadeIn(500, ->
+    $('#create-room').fadeIn(300)
+    $('#join-room').fadeIn(300)
   )
 )
