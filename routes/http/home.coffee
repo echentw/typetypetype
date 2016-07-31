@@ -11,6 +11,18 @@ createGame = (req, res, next) ->
   req.session.gameID = null
   req.session.username = null
 
+  # validate the request
+  if !req.body['username']
+    res.redirect('/')
+    return
+
+  # the username can only contain letters, numbers, underscores, and hyphens
+  if req.body['username'].match(/[^A-Za-z0-9_-]/)
+    message = 'Your username can only consist of letters and numbers, ' +
+      'and underscores and hyphens.'
+    res.render('home', {message: message})
+    return
+
   # create new session
   gameID = database.add()
   req.session.gameID = gameID
@@ -23,6 +35,13 @@ joinGame = (req, res, next) ->
   # validate the request
   if !req.body['gameID'] || !req.body['username']
     res.redirect('/')
+    return
+
+  # the username can only contain letters, numbers, underscores, and hyphens
+  if req.body['username'].match(/[^A-Za-z0-9_-]/)
+    message = 'Your username can only consist of letters and numbers, ' +
+      'and underscores and hyphens.'
+    res.render('home', {message: message})
     return
 
   # clear the current session

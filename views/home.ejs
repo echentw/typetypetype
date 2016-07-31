@@ -18,6 +18,7 @@
       </div>
 
       <div class="container-liquid">
+        <div class="text-center" id="warning"><%= message %></div>
         <div class="row">
 
           <div class="col-xs-6 col-sm-6 col-md-6" id="create-room">
@@ -37,8 +38,6 @@
               <h1>Or join an existing room</h1>
               <form method="post" action="/join">
                 <fieldset class="form-group">
-                  <div id="warning"><%= message %></div>
-
                   <input type='text' name='username' placeholder="Name" required/><br>
                   <input type="text" name="gameID" placeholder="Room ID"><br>
                   <button class="btn btn-success" type="submit">Join Room</button>
